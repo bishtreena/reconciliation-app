@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: recon-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false          # paste your key in Render dashboard → Environment
+      - key: DATABASE_URL
+        value: sqlite:///./recon.db
+      - key: ALLOWED_ORIGIN
+        sync: false          # paste your Vercel URL after frontend deploys
+    healthCheckPath: /health
+    autoDeploy: true
