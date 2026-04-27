@@ -9,11 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy app
 COPY app/ ./app/
 
-# Use PORT from Render
-ENV PORT=10000
-
-# Optional: fallback DB (can override in Render env)
+# Set DB (fine for demo)
 ENV DATABASE_URL=sqlite:///./recon.db
 
-# Run app
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
+# Run FastAPI on Fly port
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8080"]
